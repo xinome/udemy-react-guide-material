@@ -1,3 +1,5 @@
+import React from 'react';
+
 import "./App.css";
 import { Suspense, useState, useEffect, lazy } from "react";
 import BaseErrorBoundary from "./BaseErrorBoundary";
