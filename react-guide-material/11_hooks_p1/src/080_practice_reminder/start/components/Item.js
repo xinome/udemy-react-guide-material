@@ -17,14 +17,26 @@ const Item = ({todo, complete, updateTodo}) => {
         updateTodo(newTodo);
     };
 
+    const confirmContent = (e) => {
+        e.preventDefault();
+        const newTodo = {
+            ...todo,
+             editing: !todo.editing,
+            content: editingContent,
+        };
+        updateTodo(newTodo);
+    };
+
     return (
         <div key={todo.id}>
             <button onClick={() => complete(todo.id)}>完了</button>
-            {todo.editing ? (
-                <input type="text" value={editingContent} onChange={changeContent} />
-            ) : (
-                <span onDoubleClick={toggleEditMode}>{todo.content}</span>
-            )}
+            <form onSubmit={confirmContent} style={{ display: 'inline-block' }}>
+                {todo.editing ? (
+                    <input type="text" value={editingContent} onChange={changeContent} />
+                ) : (
+                    <span onDoubleClick={toggleEditMode}>{todo.content}</span>
+                )}
+            </form>
         </div>
     );
 }
