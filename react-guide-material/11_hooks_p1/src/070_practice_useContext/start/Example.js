@@ -76,7 +76,7 @@ const Example = () => {
           onChange={numChangeHandler}
         />
       </div> */}
-      <Input name="a"/>
+      <Input name="a" />
       <Input name="b" />
 
       {/* <select value={state.type} name="type" onChange={calculate}>

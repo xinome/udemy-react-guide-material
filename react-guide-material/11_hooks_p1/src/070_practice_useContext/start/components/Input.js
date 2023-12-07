@@ -1,27 +1,25 @@
-import { useCalc } from "../context/CalcContext"; 
-import { useCalcDispatch } from "../context/CalcContext";
+import { useCalc, useCalcDispatch } from "../context/CalcContext"; 
 
-const Input = () => {
+const Input = ({ name }) => {
 
   // state, dispatch用のContextをそれぞれ作成
   const state = useCalc();
   const dispatch = useCalcDispatch();
+
   const numChangeHandler = (e) => {
     dispatch({type: 'change', payload: {name: e.target.name, value: e.target.value}});
   };
 
   return (
-    <>
-      <div>
-        {state}:
-        <input
-          type="number"
-          name={state}
-          value={state}
-          onChange={numChangeHandler}
-        />
-      </div>
-    </>
+    <div>
+      {name}:
+      <input
+        type="number"
+        name={name}
+        value={state[name]}
+        onChange={numChangeHandler}
+      />
+    </div>
   );
 };
 

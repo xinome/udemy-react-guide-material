@@ -1,5 +1,4 @@
-import { useCalc } from "../context/CalcContext"; 
-import { useCalcDispatch } from "../context/CalcContext";
+import { useCalc, useCalcDispatch } from "../context/CalcContext"; 
 
 const CALC_OPTIONS = ["add", "minus", "divide", "multiply"];
 
@@ -7,6 +6,7 @@ const Select = () => {
 
   const state = useCalc();
   const dispatch = useCalcDispatch();
+
   const calculate = (e) => {
     dispatch({type: e.target.value});
   };
