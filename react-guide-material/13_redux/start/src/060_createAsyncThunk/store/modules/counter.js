@@ -1,11 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import { asyncCount } from "../../api/counter"
 
 const counter = createSlice({
   name: 'counter',
   initialState: {
-    count: 0
+    count: 0,
+    status: '',
   },
   reducers: {
     add(state, { type, payload }) {
@@ -20,10 +21,33 @@ const counter = createSlice({
       // newState.count = state.count - payload
       // return newState;
     }
+  },
+
+  // extraReducersは、createAsyncThunkで作成した非同期関数の結果に対して
+  // 任意の処理を行うことができる。
+  extraReducers: (builder) => {
+    builder.addCase(addAsyncWithStatus.pending, (state) => {
+      state.status = 'Loading...';
+    })
+    .addCase(addAsyncWithStatus.fulfilled, (state, action) => {
+      state.status = '取得済';
+      state.count = state.count + action.payload;
+    })
+    .addCase(addAsyncWithStatus.rejected, (state) => {
+      state.status = 'エラー';
+    })
   }
 });
 
 const { add, minus } = counter.actions;
+
+const addAsyncWithStatus = createAsyncThunk(
+  'counter_asyncCount',
+  async (payload) => {
+    const response = await asyncCount(payload);
+    return response.data;
+  }
+);
 
 const addAsync = (payload) => {
   return async (dispatch, getState) => {
@@ -35,5 +59,5 @@ const addAsync = (payload) => {
 }
 
 
-export { add, minus, addAsync }
+export { add, minus, addAsync, addAsyncWithStatus }
 export default counter.reducer
