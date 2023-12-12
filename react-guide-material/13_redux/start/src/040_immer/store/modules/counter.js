@@ -2,15 +2,20 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const counter = createSlice({
   name: 'counter',
-  initialState: 0,
+  initialState: {
+    count: 0,
+  },
   reducers: {
     add(state, { type, payload }) {
-      console.log(type, payload)
-      return state + payload;
+      // immutabilityの保持
+      const newState = { ...state };
+      newState.count = state.count + payload;
+      return newState;
     },
     minus(state, { type, payload }) {
-      console.log(type, payload)
-      return state - payload;
+      const newState = { ...state };
+      newState.count = state.count - payload;
+      return newState;
     }
   }
 })
