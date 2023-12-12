@@ -1,9 +1,14 @@
-import { createStore, combineReducers } from "redux";
-import { reducer } from "./modules/counter"
+// import { createStore, combineReducers } from "redux";
+import { configureStore } from "@reduxjs/toolkit";
+import reducer from "./modules/counter"
 
 
-const reducers = combineReducers({
-  counter: reducer,
+// const reducers = combineReducers({
+//   counter: reducer,
+// });
+
+export default configureStore({
+  reducer: {
+    counter: reducer,
+  }
 });
-
-export default createStore(reducers);
