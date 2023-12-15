@@ -1,5 +1,8 @@
-import { useState } from "react";
+import { useState, lazy, Suspense } from "react";
 import ComponentA from "./components/ComponentA";
+
+const LazyComponentA = lazy(() => import("./components/ComponentA"));
+const LazyComponentB = lazy(() => import("./components/ComponentB"));
 
 const Example = () => {
   const [compA, setCompA] = useState(false);
@@ -7,7 +10,11 @@ const Example = () => {
   return (
     <>
       <button onClick={() => setCompA((prev) => !prev)}>ComponentA</button>
-      {compA && <ComponentA />}
+      {/* loading */}
+      <Suspense fallback={<div>Loading...</div>}>
+        {/* {compA && <LazyComponentA />} */}
+        {compA ? <LazyComponentA /> : <LazyComponentB />}
+      </Suspense>
     </>
   );
 };
