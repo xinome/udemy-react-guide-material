@@ -9,7 +9,8 @@ import Link from "next/link";
 export default function PageLink() {
   const initialState = { name: "", birth: "" };
   const [value, setValue] = useState(initialState);
-  const [ list, setList ] = useAppContext();
+  // const [list, setList] = useState([]);
+  const [list, setList] = useAppContext();
   const router = useRouter();
 
   const handleChange = (e) => {
